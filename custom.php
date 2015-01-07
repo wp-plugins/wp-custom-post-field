@@ -4,7 +4,7 @@ Plugin Name: wp Custom Post Field
 Plugin URI: http://phpdevlopar.blogspot.in/
 Description: Add Custom Field for Post
 Author: Bhanderi Tushal
-Version: 1.0.0
+Version: 1.1.0
 Author URI: http://phpdevlopar.blogspot.in
 */
 
@@ -99,6 +99,8 @@ function wcp_create_custom_post_types() {
 					$wcp_show_in_menu = ( $wcp_post_type["show_in_menu"] == 1 ) ? true : false;
 				} else {
 					$wcp_show_in_menu = $wcp_post_type['show_in_menu_string'];
+
+
 				}
 			} else {
 				$wcp_show_in_menu = false;
@@ -304,51 +306,29 @@ function wcp_settings() {
       <tr>
         <td valign="top" width="33%"><p>
             <?php _e( 'This Plugin Created For Add Multiple Custom Post Type In Wordpress Site And Use Multiple Time with Single File code. 
-			<br />You Just Add sinlge Code In Function File For Display This Post.
-			</br>
-          Copy This Code And Add on Function File. And Replace Feature With  Your Post Name.<br>  ', 'wcp-plugin'); ?>
+			<br />
+			On This Plugin You Create Multiple Post Filed And add Post Blog on That .If You Want To Display Post On Single Page Then You Can Do it With Use Post Type Name .
+			<br>  ', 'wcp-plugin'); ?>
 
 
           </p></td>
       </tr>
       <tr>
-      	<td>
-		<?php 
-		echo "<pre>
+			<td width="33%"><h3><?php _e( 'PayPal Donation', 'wcp-plugin' ); ?></h3></td>
+			</tr>
+			<tr>
+			<td valign="top" width="33%">
+				<p><?php _e( 'Please donate to the development<br />of Custom Post Field:', 'wcp-plugin'); ?>
 				
-			
-			
-add_action( 'init', 'my_custom_post_feature' );
-function my_custom_post_feature() {
-     
-	 '$'labels = array(                //remove single quotes
-    'name'               => _x( 'feature', 'post type general name' ),
-    'singular_name'      => _x( 'feature', 'post type singular name' ),
-    'add_new'            => _x( 'Add New', 'feature' ),
-    'add_new_item'       => __( 'Add New feature' ),
-    'edit_item'          => __( 'Edit feature' ),
-    'new_item'           => __( 'New feature' ),
-    'all_items'          => __( 'All feature' ),
-    'view_item'          => __( 'View feature' ),
-    'search_items'       => __( 'Search feature' ),
-    'not_found'          => __( 'No feature found' ),
-    'not_found_in_trash' => __( 'No feature found in the Trash' ), 
-    'parent_item_colon'  => '',
-    'menu_name'          => 'feature'
-  );
-  '$'args = array(                     //remove single quotes
-    'labels'        => '$'labels,     //remove single quotes
-    'description'   => 'Holds our feature and feature specific data',
-    'public'        => true,
-    'menu_position' => 5,
-    'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
-    'has_archive'   => true,
-  );
-  register_post_type( 'feature', '$'args );     //remove single quotes
-} ";
-?>
-        </td>
-      </tr>
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="hosted_button_id" value="Z9PDBKKQK3QJN">
+				<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+				<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+				</form>
+
+				</p>
+			</td>
     </table>
   </div>
 </div>

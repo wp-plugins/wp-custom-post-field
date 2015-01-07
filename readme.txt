@@ -27,12 +27,15 @@ This plugin provides an easy to use to create and administer custom post types a
 2. Custom post type and taxonomies are added Display in dashbord admin menus
 3. List Of Wordpress Custom Post type
 4. Easily add new post in costom type.
-5. About Plugin and code for add for display custom post
+
 
 == Changelog ==
 
 = 0.1 =
 * First beta release
+
+= 0.2 =
+* Remove conflic code 
 
 Now you can easily start creating custom post types and taxonomies in WordPress
 
