@@ -4,12 +4,12 @@ Plugin Name: wp Custom Post Field
 Plugin URI: http://phpdevlopar.blogspot.in/
 Description: Add Custom Field for Post
 Author: Bhanderi Tushal
-Version: 1.1.0
+Version: 2.0.0
 Author URI: http://phpdevlopar.blogspot.in
 */
 
 // Define current version constant
-define( 'WCP_VERSION', '1.0.0' );
+define( 'WCP_VERSION', '2.0.0' );
 
 // Define plugin URL constant
 $WCP_URL = wcp_check_return( 'add' );
@@ -99,6 +99,7 @@ function wcp_create_custom_post_types() {
 					$wcp_show_in_menu = ( $wcp_post_type["show_in_menu"] == 1 ) ? true : false;
 				} else {
 					$wcp_show_in_menu = $wcp_post_type['show_in_menu_string'];
+
 
 
 				}
@@ -320,12 +321,18 @@ function wcp_settings() {
 			<td valign="top" width="33%">
 				<p><?php _e( 'Please donate to the development<br />of Custom Post Field:', 'wcp-plugin'); ?>
 				
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="Z9PDBKKQK3QJN">
-				<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-				<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+				<input type="hidden" name="cmd" value="_donations">
+				<input type="hidden" name="business" value="btushal304@gmail.com">
+				<input type="hidden" name="lc" value="US">
+				<input type="hidden" name="item_name" value="Wos">
+				<input type="hidden" name="no_note" value="0">
+				<input type="hidden" name="currency_code" value="USD">
+				<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 				</form>
+
 
 				</p>
 			</td>
@@ -373,6 +380,7 @@ if ( isset($_GET['wcp_msg'] ) && $_GET['wcp_msg'] == 'del' ) { ?>
         <th><?php _e('Name', 'wcp-plugin');?></th>
         <th><?php _e('Label', 'wcp-plugin');?></th>
         <th><?php _e('Description', 'wcp-plugin');?></th>
+        <th><?php _e('Shortcode', 'wcp-plugin');?></th>	   
         </tr>
     </thead>
     <tfoot>
@@ -381,6 +389,7 @@ if ( isset($_GET['wcp_msg'] ) && $_GET['wcp_msg'] == 'del' ) { ?>
         <th><?php _e('Name', 'wcp-plugin');?></th>
         <th><?php _e('Label', 'wcp-plugin');?></th>
         <th><?php _e('Description', 'wcp-plugin');?></th>
+         <th><?php _e('Shortcode', 'wcp-plugin');?></th>
         </tr>
     </tfoot>
     <?php
@@ -409,14 +418,16 @@ if ( isset($_GET['wcp_msg'] ) && $_GET['wcp_msg'] == 'del' ) { ?>
       <td valign="top"><?php echo stripslashes($wcp_post_type["name"]); ?></td>
       <td valign="top"><?php echo stripslashes($wcp_post_type["label"]); ?></td>
       <td valign="top"><?php echo stripslashes($wcp_post_type["description"]); ?></td>
-      
+      <td valign="top"><?php echo '[WCPPOST postname="'.stripslashes($wcp_post_type["label"]).'"]'; ?></td>
     </tr>
     
     
 	<?php  			
 		$thecounter++;
+		
 		$wcp_names[] = strtolower( $wcp_post_type["name"] );
 		}
+		
 			$args=array(
 			  'public'   => true,
 			  '_builtin' => false
@@ -428,8 +439,6 @@ if ( isset($_GET['wcp_msg'] ) && $_GET['wcp_msg'] == 'del' ) { ?>
 
 				?>
   </table>
-
-					
 </div>
 <?php
 	
@@ -898,12 +907,67 @@ function disp_boolean($booText) {
 	return 'true';
 }
 
+add_shortcode( 'WCPPOST', 'my_custom_post_feature1' );
+function my_custom_post_feature1($atts) {
+
+extract(shortcode_atts(array(
+      'post_type' => $postnames,
+   ), $atts));
+    
+
+    $query = new WP_Query( array(
+        'post_type' => $atts['postname'],
+        'color' => 'blue',
+        'posts_per_page' => -1,
+        'order' => 'ASC',
+        'orderby' => 'title',
+    ) );
+    if ( $query->have_posts() ) { ?>
+        <ul class="postname-listing">
+            <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+            <li id="post-<?php the_ID(); ?>"  <?php post_class('postnameli') ; ?>>
+              <div class="post-titles">
+		      <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			 </div>
+			 <div class="post-cont">
+			<?php the_content('Read more...'); ?>.
+			</div>
+            </li>
+            <?php endwhile;
+            wp_reset_postdata(); ?>
+        </ul>
+    <?php $myvariable = ob_get_clean();
+    return $myvariable;
+    }
+}
+
 function wcp_help_style() { ?>
 <style>
 		.help:hover {
 			font-weight: bold;
 		}
 		.required { color: rgb(255,0,0); }
+
 	</style>
 <?php
 }
+?>
+<style>.postnameli {
+    border: 1px solid #000;
+    border-radius: 10px;
+    list-style: outside none none;
+    margin: 20px 0;
+    padding: 10px 20px;
+    text-align: left;
+}
+.post-titles {
+    background: none repeat scroll 0 0 #73b2e4;
+    padding: 10px 0 10px 20px;
+}
+.post-cont {
+    padding: 10px 20px;
+}
+.post-titles > a {
+    color: #fff;
+    font-size: 18px;
+}</style>

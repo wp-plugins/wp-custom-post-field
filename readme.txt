@@ -1,6 +1,6 @@
 === wp Custom Post Field ===
 Contributors: Bhanderi Tushal
-Tags: wordpress custom post Field, post ,custom ,post field,manage post
+Tags: wordpress custom post Field, post ,custom ,post field,manage post,Shortcode,post shortcode,custom post shortcode
 Requires at least: 3.5
 Tested up to: 4.0
 License: GPLv2
@@ -27,6 +27,7 @@ This plugin provides an easy to use to create and administer custom post types a
 2. Custom post type and taxonomies are added Display in dashbord admin menus
 3. List Of Wordpress Custom Post type
 4. Easily add new post in costom type.
+5. List Of shortcode ,Simple copy shortcode and past in page
 
 
 == Changelog ==
@@ -36,6 +37,9 @@ This plugin provides an easy to use to create and administer custom post types a
 
 = 0.2 =
 * Remove conflic code 
+
+= 2.0 =
+* Add Shortcode For Display Post On page
 
 Now you can easily start creating custom post types and taxonomies in WordPress
 
