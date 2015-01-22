@@ -4,12 +4,12 @@ Plugin Name: wp Custom Post Field
 Plugin URI: http://phpdevlopar.blogspot.in/
 Description: Add Custom Field for Post
 Author: Bhanderi Tushal
-Version: 2.0.0
+Version: 1.1.0
 Author URI: http://phpdevlopar.blogspot.in
 */
 
 // Define current version constant
-define( 'WCP_VERSION', '2.0.0' );
+define( 'WCP_VERSION', '1.0.0' );
 
 // Define plugin URL constant
 $WCP_URL = wcp_check_return( 'add' );
@@ -99,7 +99,6 @@ function wcp_create_custom_post_types() {
 					$wcp_show_in_menu = ( $wcp_post_type["show_in_menu"] == 1 ) ? true : false;
 				} else {
 					$wcp_show_in_menu = $wcp_post_type['show_in_menu_string'];
-
 
 
 				}
@@ -325,7 +324,7 @@ function wcp_settings() {
 				<input type="hidden" name="cmd" value="_donations">
 				<input type="hidden" name="business" value="btushal304@gmail.com">
 				<input type="hidden" name="lc" value="US">
-				<input type="hidden" name="item_name" value="Wos">
+				<input type="hidden" name="item_name" value="Custopm Post">
 				<input type="hidden" name="no_note" value="0">
 				<input type="hidden" name="currency_code" value="USD">
 				<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
