@@ -1,5 +1,5 @@
 === wp Custom Post Field ===
-Contributors: Bhanderi Tushal
+Contributors: tushal304
 Tags: wordpress custom post Field, post ,custom ,post field,manage post,Shortcode,post shortcode,custom post shortcode
 Requires at least: 3.5
 Tested up to: 4.0
