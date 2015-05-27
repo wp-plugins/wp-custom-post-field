@@ -4,12 +4,12 @@ Plugin Name: wp Custom Post Field
 Plugin URI: http://phpdevlopar.blogspot.in/
 Description: Add Custom Field for Post
 Author: Bhanderi Tushal
-Version: 1.1.0
+Version: 2.1.0
 Author URI: http://phpdevlopar.blogspot.in
 */
 
 // Define current version constant
-define( 'WCP_VERSION', '1.0.0' );
+define( 'WCP_VERSION', '2.1.0' );
 
 // Define plugin URL constant
 $WCP_URL = wcp_check_return( 'add' );
@@ -39,6 +39,10 @@ function wcp_deactivation() {
 	flush_rewrite_rules();
 }
 
+ add_action( 'wp_enqueue_scripts', 'stylefile' );
+    function stylefile() {
+        wp_enqueue_style( 'prefix-style', plugins_url('style.css', __FILE__) );
+	}
 function wcp_load_textdomain() {
 	load_plugin_textdomain( 'wcp-plugin', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }
@@ -50,7 +54,6 @@ function wcp_plugin_menu() {
 	//create submenu items
 	add_submenu_page( 'wcp_main_menu', __( 'Add New', 'wcp-plugin' ), __( 'Add New', 'wcp-plugin' ), 'manage_options', 'wcp_sub_add_new', 'wcp_add_new' );
 	add_submenu_page( 'wcp_main_menu', __( 'Manage Post Types', 'wcp-plugin' ), __( 'Manage Post Types', 'wcp-plugin' ), 'manage_options', 'wcp_sub_manage_wcp', 'wcp_manage_wcp' );
-	
 }
 
 if ( strpos( $_SERVER['REQUEST_URI'], 'wcp' ) > 0 ) {
@@ -59,9 +62,8 @@ if ( strpos( $_SERVER['REQUEST_URI'], 'wcp' ) > 0 ) {
 
 // Add JS Scripts
 function wcp_wp_add_styles() {
-
 	wp_enqueue_script( 'jquery' ); ?>
-<script type="text/javascript" >
+		<script type="text/javascript" >
 			jQuery(document).ready(function($) {
 				$(".comment_button").click(function() {
 					var element = $(this), I = element.attr("id");
@@ -72,10 +74,9 @@ function wcp_wp_add_styles() {
 				});
 			});
 		</script>
-<?php
-}
+<?php }
 
-function wcp_create_custom_post_types() {
+function wcp_create_custom_post_types(){
 	//register custom post types
 	$wcp_post_types = get_option('wcp_custom_post_types');
 
@@ -99,8 +100,6 @@ function wcp_create_custom_post_types() {
 					$wcp_show_in_menu = ( $wcp_post_type["show_in_menu"] == 1 ) ? true : false;
 				} else {
 					$wcp_show_in_menu = $wcp_post_type['show_in_menu_string'];
-
-
 				}
 			} else {
 				$wcp_show_in_menu = false;
@@ -109,7 +108,6 @@ function wcp_create_custom_post_types() {
 			//set custom label values
 			$wcp_labels['name']             = $wcp_label;
 			$wcp_labels['singular_name']    = $wcp_post_type["singular_label"];
-
 
 			if ( isset ( $wcp_post_type[2]["menu_name"] ) ) {
 				$wcp_labels['menu_name'] = ( !empty( $wcp_post_type[2]["menu_name"] ) ) ? $wcp_post_type[2]["menu_name"] : $wcp_label;
@@ -166,8 +164,6 @@ function wcp_delete_post_type() {
 
 		wp_redirect( $RETURN_URL .'&wcp_msg=del' );
 	}
-
-	
 }
 
 function wcp_register_settings() {
@@ -194,7 +190,6 @@ function wcp_register_settings() {
 		$wcp_options = get_option( 'wcp_custom_post_types' );
 
 		if ( is_array( $wcp_options ) ) {
-
 			unset( $wcp_options[$wcp_edit] );
 
 			//insert new custom post type into the array
@@ -211,9 +206,7 @@ function wcp_register_settings() {
 			} else {
 				$RETURN_URL = $WCP_URL;
 			}
-
 			wp_redirect( $RETURN_URL );
-
 		}
 
 	} elseif ( isset( $_POST['wcp_submit'] ) ) {
@@ -398,12 +391,9 @@ if ( isset($_GET['wcp_msg'] ) && $_GET['wcp_msg'] == 'del' ) { ?>
 		foreach ( $wcp_post_types as $wcp_post_type ) {
 			$del_url = wcp_check_return( 'wcp' ) .'&deltype=' .$thecounter .'&return=wcp';
 			$del_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($del_url, 'wcp_delete_post_type') : $del_url;
-
 			$edit_url = $MANAGE_URL .'&edittype=' .$thecounter .'&return=wcp';
 			$edit_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($edit_url, 'wcp_edit_post_type') : $edit_url;
-
 			$wcp_counts = wp_count_posts($wcp_post_type["name"]);
-
 			$rewrite_slug = ( $wcp_post_type["rewrite_slug"] ) ? $wcp_post_type["rewrite_slug"] : $wcp_post_type["name"];
 		?>
     <tr>
@@ -417,16 +407,12 @@ if ( isset($_GET['wcp_msg'] ) && $_GET['wcp_msg'] == 'del' ) { ?>
       <td valign="top"><?php echo stripslashes($wcp_post_type["name"]); ?></td>
       <td valign="top"><?php echo stripslashes($wcp_post_type["label"]); ?></td>
       <td valign="top"><?php echo stripslashes($wcp_post_type["description"]); ?></td>
-      <td valign="top"><?php echo '[WCPPOST postname="'.stripslashes($wcp_post_type["label"]).'"]'; ?></td>
+      <td valign="top"><?php echo '[WCPPOST postname="'.stripslashes($wcp_post_type["name"]).'"]'; ?></td>
     </tr>
-    
-    
-	<?php  			
+    <?php  			
 		$thecounter++;
-		
 		$wcp_names[] = strtolower( $wcp_post_type["name"] );
 		}
-		
 			$args=array(
 			  'public'   => true,
 			  '_builtin' => false
@@ -435,23 +421,18 @@ if ( isset($_GET['wcp_msg'] ) && $_GET['wcp_msg'] == 'del' ) { ?>
 			$post_types = get_post_types( $args, $output );
 			$wcp_first = false;
 			if ( $post_types ) {
-
-				?>
+			?>
   </table>
 </div>
-<?php
-	
-
-		//load footer
+<?php //load footer
 		wcp_footer();
-	}
+		}
 	}
 }
 
 //add new custom post type / taxonomy page
 function wcp_add_new() {
 	global $wcp_error, $WCP_URL;
-
 	$RETURN_URL = ( isset( $_GET['return'] ) ) ? 'action="' . wcp_check_return( esc_attr( $_GET['return'] ) ) . '"' : '';
 
 	//check if we are editing a custom post type or creating a new one
@@ -472,21 +453,16 @@ function wcp_add_new() {
 		$wcp_description        = ( isset( $wcp_options[ $editType ]["description"] ) ) ? $wcp_options[ $editType ]["description"] : null;
 		$wcp_has_archive        = ( isset( $wcp_options[$editType]["has_archive"] ) ) ? $wcp_options[$editType]["has_archive"] : null;
 		$wcp_exclude_from_search = ( isset( $wcp_options[$editType]["exclude_from_search"] ) ) ? $wcp_options[$editType]["exclude_from_search"] : null;
-
 		$wcp_submit_name = __( 'Save Custom Post Type', 'wcp-plugin' );
 	} else {
 		$wcp_submit_name = __( 'Create Custom Post Type', 'wcp-plugin' );
 	}
 
-	
-
 	//flush rewrite rules
 	flush_rewrite_rules();
 
-	/*
-	BEGIN 'ADD NEW' PAGE OUTPUT
-	 */
-	?>
+	/* BEGIN 'ADD NEW' PAGE OUTPUT */ ?>
+    
 <div class="wrap">
   <?php
 		//check for success/error messages
@@ -863,13 +839,11 @@ function wcp_add_new() {
     </tr>
   </table>
 </div>
-<?php
-//load footer
-wcp_footer();
+<?php //load footer
+	wcp_footer();
 }
 
-function wcp_footer() {
-	?>
+function wcp_footer() { ?>
 <hr />
 <p class="cp_about"><a target="_blank" href="#">
   <?php _e( 'Custom Post', 'wcp-plugin' ); ?>
@@ -909,9 +883,9 @@ function disp_boolean($booText) {
 add_shortcode( 'WCPPOST', 'my_custom_post_feature1' );
 function my_custom_post_feature1($atts) {
 
-extract(shortcode_atts(array(
-      'post_type' => $postnames,
-   ), $atts));
+	extract(shortcode_atts(array(
+		  'post_type' => $postnames,
+	   ), $atts));
     
 
     $query = new WP_Query( array(
@@ -939,7 +913,6 @@ extract(shortcode_atts(array(
     return $myvariable;
     }
 }
-
 function wcp_help_style() { ?>
 <style>
 		.help:hover {
@@ -951,22 +924,3 @@ function wcp_help_style() { ?>
 <?php
 }
 ?>
-<style>.postnameli {
-    border: 1px solid #000;
-    border-radius: 10px;
-    list-style: outside none none;
-    margin: 20px 0;
-    padding: 10px 20px;
-    text-align: left;
-}
-.post-titles {
-    background: none repeat scroll 0 0 #73b2e4;
-    padding: 10px 0 10px 20px;
-}
-.post-cont {
-    padding: 10px 20px;
-}
-.post-titles > a {
-    color: #fff;
-    font-size: 18px;
-}</style>

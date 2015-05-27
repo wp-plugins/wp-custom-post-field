@@ -1,0 +1,24 @@
+/*
+* Plugin Name: Wordpress Custom Post Field
+*
+*
+*/
+.postnameli {
+    border: 1px solid #000;
+    border-radius: 10px;
+    list-style: outside none none;
+    margin: 20px 0;
+    padding: 10px 20px;
+    text-align: left;
+}
+.post-titles {
+    background: none repeat scroll 0 0 #73b2e4;
+    padding: 10px 0 10px 20px;
+}
+.post-cont {
+    padding: 10px 20px;
+}
+.post-titles > a {
+    color: #fff;
+    font-size: 18px;
+}

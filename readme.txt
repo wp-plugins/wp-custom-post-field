@@ -2,7 +2,7 @@
 Contributors: tushal304
 Tags: wordpress custom post Field, post ,custom ,post field,manage post,Shortcode,post shortcode,custom post shortcode
 Requires at least: 3.5
-Tested up to: 4.0
+Tested up to: 4.2.2
 License: GPLv2
 
 Wordpress Custom Post Field for creating custom post types and custom taxonomies in WordPress site.and easy manage custom post.
@@ -40,6 +40,9 @@ This plugin provides an easy to use to create and administer custom post types a
 
 = 2.0 =
 * Add Shortcode For Display Post On page
+
+= 2.1 =
+* Remove Error "Header already send....".
 
 Now you can easily start creating custom post types and taxonomies in WordPress
 
