@@ -1,6 +1,6 @@
 <?php
-/*
- *	Plugin Name: wp Custom Post Field
+/**
+ *	Plugin Name: Wordpress Custom Post Field
  *	Plugin URI: http://phpdevlopar.blogspot.in/
  *	Description: Add Custom Field for Post
  *	Version: 2.1.0

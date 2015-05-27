@@ -1,6 +1,7 @@
-=== wp Custom Post Field ===
+=== Wordpress Custom Post Field ===
 Contributors: tushal304
-Tags: wordpress custom post Field, post ,custom ,post field,manage post,Shortcode,post shortcode,custom post shortcode
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U6APJY23C6N
+Tags: wordpress custom post Field, post ,custom ,post field,manage post, Shortcode, post shortcode,custom post shortcode ,custom field ,post field ,wordpress post field,custom post in wordpress, add custom post
 Requires at least: 3.5
 Tested up to: 4.2.2
 License: GPLv2
