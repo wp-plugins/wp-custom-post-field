@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: wp Custom Post Field
-Plugin URI: http://phpdevlopar.blogspot.in/
-Description: Add Custom Field for Post
-Author: Bhanderi Tushal
-Version: 2.1.0
-Author URI: http://phpdevlopar.blogspot.in
+* Plugin Name: wp Custom Post Field
+* Plugin URI: http://phpdevlopar.blogspot.in/
+* Description: Add Custom Field for Post
+* Author: Bhanderi Tushal
+* Version: 2.1.0
+* Author URI: http://phpdevlopar.blogspot.in
 */
 
 // Define current version constant
