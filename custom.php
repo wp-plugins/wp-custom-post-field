@@ -7,6 +7,7 @@
  *  Author: Bhanderi Tushal
  *	Author URI: http://phpdevlopar.blogspot.in
  *	License: GPLv2 or later
+ *  Text Domain: wcp-plugin
 */
 
 // Define current version constant
